@@ -991,11 +991,7 @@ class gather_insertions props swd =
         | TNamed (ty, _) -> dig_type ty.ttype
         | _ -> raise Unreachable
       in
-      let rec strip_const = function
-        | TPtr (t, att) -> TPtr (strip_const t, att)
-        | TArray (t, a, b, c) -> TArray (strip_const t, a, b, c)
-        | ty -> ty
-      in
+      let strip_const ty = Cil.type_remove_qualifier_attributes ty in
       let addoffset ty lval exp =
         if Cil.isPointerType ty then
           let base = Cil.new_exp ~loc (Lval lval) in
