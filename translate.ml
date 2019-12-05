@@ -270,10 +270,16 @@ class gather_insertions props swd =
           let env1, a' = self#translate_term a in
           let env2, b' = self#as_c_type Cil.intType b in
           (Env.merge env1 env2, BinOp (op, a', b', Cil.typeOf a'))
+      | MinusPP ->
+          let env1, a' = self#translate_term a in
+          let env2, b' = self#translate_term b in
+          (Env.merge env1 env2, BinOp(op, a', b', Cil.theMachine.ptrdiffType))
       | Shiftlt -> self#translate_shift ty "lshift" self#cmul_2exp a b
       | Shiftrt -> self#translate_shift ty "rshift" self#cfdiv_q_2exp a b
-      | _ -> (
-        match ty with
+      | PlusA | MinusA | Mult | Div | Mod
+        | BAnd | BXor | BOr
+        | Lt | Gt | Le | Ge | Eq | Ne ->
+        (match ty with
         | Linteger ->
             let env1, x = self#as_logic_type Linteger a in
             let env2, y = self#as_logic_type Linteger b in
@@ -302,6 +308,10 @@ class gather_insertions props swd =
             in
             (Env.merge env1 (Env.merge env2 env3), e.enode)
         | _ -> raise Unreachable )
+      | LAnd | LOr ->
+          Options.warning "logic C operator not implemented"; raise Unreachable
+          Options.fatal
+            "unexpected comparison operator in ACSL term translation"
 
     method private translate_tif cond then_b else_b =
       match then_b.term_type with

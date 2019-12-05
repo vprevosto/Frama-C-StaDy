@@ -195,6 +195,9 @@ let binop_to_fname = function
   | Mult -> "mul"
   | Div -> "tdiv_q"
   | Mod -> "tdiv_r"
+  | BAnd -> "and"
+  | BXor -> "xor"
+  | BOr -> "ior"
   | _ -> failwith "binop_to_fname"
 
 let relation_to_binop = function
