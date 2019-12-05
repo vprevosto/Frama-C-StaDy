@@ -1,5 +1,7 @@
 [kernel] Parsing tests/all4/all4.c (with preprocessing)
-tests/all4/all4.c:99:[kernel] warning: Floating-point constant 0.1 is not represented exactly. Will use 0x1.999999999999ap-4. See documentation for option -warn-decimal-float
+[kernel:parser:decimal-float] tests/all4/all4.c:99: Warning: 
+  Floating-point constant 0.1 is not represented exactly. Will use 0x1.999999999999ap-4.
+  (warn-once: no further messages from category 'parser:decimal-float' will be emitted)
 [stady:generated-pl] generated Prolog precondition:
 :- module(test_parameters).
 :- import create_input_val/3 from substitution.
@@ -22,8 +24,8 @@ dom('F7', 'nondet_sint_cpt', [], int([0])).
 dom('pathcrawler__F7_precond',A,B,C) :-
   dom('F7',A,B,C).
 create_input_vals('F7', Ins):-
-  create_input_val(dim('f19'), int([1..4294967295]),Ins),
   create_input_val(dim('f20'), int([1..4294967295]),Ins),
+  create_input_val(dim('f19'), int([1..4294967295]),Ins),
   create_input_val('f17', double([(-1.7976931348623157e+308)..(1.7976931348623157e+308)]),Ins),
   create_input_val('f18', double([(-1.7976931348623157e+308)..(1.7976931348623157e+308)]),Ins),
   create_input_val(dim('nondet_sint_val'), int([0..4294967295]),Ins),
@@ -49,8 +51,8 @@ strategy('pathcrawler__F7_precond',A) :-
   strategy('F7',A).
 precondition_of('F7','pathcrawler__F7_precond').
 [stady:generated-c] generated C file:
-#include "/usr/local/share/frama-c/stady/externals.h"
-#include "/usr/local/share/frama-c/stady/nondet.c"
+#include "FRAMAC_SHARE/stady/externals.h"
+#include "FRAMAC_SHARE/stady/nondet.c"
 
 typedef double T1;
 typedef int T2;
@@ -363,7 +365,7 @@ void F7(T1 f17, T1 f18, T5 *f19, T5 *f20)
               __gmpz_init_set_si(__sd_Z_to_Z_0,V22);
               __gmpz_init_set_str(__sd_Z_cst_8,"0",10);
               __sd_ne_0 = __gmpz_cmp(__sd_Z_to_Z_0,__sd_Z_cst_8);
-              if (! (__sd_ne_0 != 0)) pathcrawler_assert_exception("",1);
+              if (! (__sd_ne_0 != 0)) pathcrawler_assert_exception("",0);
               __gmpz_clear(__sd_Z_to_Z_0);
               __gmpz_clear(__sd_Z_cst_8);
               
@@ -471,7 +473,9 @@ void F8(void)
   }
 }
 [kernel] Parsing __sd_instru_all4_F7.c (with preprocessing)
-__sd_instru_all4_F7.c:296:[kernel] warning: Floating-point constant 0.1 is not represented exactly. Will use 0x1.999999999999ap-4. See documentation for option -warn-decimal-float
+[kernel:parser:decimal-float] __sd_instru_all4_F7.c:296: Warning: 
+  Floating-point constant 0.1 is not represented exactly. Will use 0x1.999999999999ap-4.
+  (warn-once: no further messages from category 'parser:decimal-float' will be emitted)
 [kernel] Parsing __sd_instru_all4_F7.c (with preprocessing)
 [pc] Starting lanceur_F7 (isc version)
 [pc] Starting lanceur_pathcrawler__F7_precond (isc version)
@@ -479,56 +483,56 @@ __sd_instru_all4_F7.c:296:[kernel] warning: Floating-point constant 0.1 is not r
 [stady] all-paths: true
 [stady] 13 test cases
 [stady] Non-Compliance
-    of       : assert V22 ≢ 0; 
-    location : tests/all4/all4.c:109
-    TEST DRIVER: testcases___sd_instru_all4_F7/F7/testdrivers/TC_3.c
-    G1[0] = 0
-    G1[10] = 0
-    G1[11] = 0
-    G1[1] = 0
-    G1[2] = 0
-    G1[3] = 0
-    G1[4] = 0
-    G1[5] = 0
-    G1[6] = 0
-    G1[7] = 0
-    G1[8] = 0
-    G1[9] = 0
-    G2[0] = 0
-    G2[10] = 0
-    G2[11] = 0
-    G2[1] = 0
-    G2[2] = 0
-    G2[3] = 0
-    G2[4] = 0
-    G2[5] = 0
-    G2[6] = 0
-    G2[7] = 0
-    G2[8] = 0
-    G2[9] = 0
-    f17 = -1.7976931348623157e+308
-    f18 = 0
-    f19[0][0] = -1.7976931348623155e+307
-    f19[0][10] = 0
-    f19[0][11] = 0
-    f19[0][1] = 0
-    f19[0][2] = 0
-    f19[0][3] = 0
-    f19[0][4] = 0
-    f19[0][5] = 0
-    f19[0][6] = 0
-    f19[0][7] = 0
-    f19[0][8] = 0
-    f19[0][9] = 0
-    f20[0][0] = 0.10000000000000001
-    f20[0][10] = 0
-    f20[0][11] = 0
-    f20[0][1] = 0
-    f20[0][2] = 0
-    f20[0][3] = 0
-    f20[0][4] = 0
-    f20[0][5] = 0
-    f20[0][6] = 0
-    f20[0][7] = 0
-    f20[0][8] = 0
-    f20[0][9] = 0
+  of       : assert V22 ≢ 0; 
+  location : tests/all4/all4.c:109
+  TEST DRIVER: testcases___sd_instru_all4_F7/F7/testdrivers/TC_3.c
+  G1[0] = 0
+  G1[10] = 0
+  G1[11] = 0
+  G1[1] = 0
+  G1[2] = 0
+  G1[3] = 0
+  G1[4] = 0
+  G1[5] = 0
+  G1[6] = 0
+  G1[7] = 0
+  G1[8] = 0
+  G1[9] = 0
+  G2[0] = 0
+  G2[10] = 0
+  G2[11] = 0
+  G2[1] = 0
+  G2[2] = 0
+  G2[3] = 0
+  G2[4] = 0
+  G2[5] = 0
+  G2[6] = 0
+  G2[7] = 0
+  G2[8] = 0
+  G2[9] = 0
+  f17 = -1.7976931348623157e+308
+  f18 = 0
+  f19[0][0] = -1.7976931348623155e+307
+  f19[0][10] = 0
+  f19[0][11] = 0
+  f19[0][1] = 0
+  f19[0][2] = 0
+  f19[0][3] = 0
+  f19[0][4] = 0
+  f19[0][5] = 0
+  f19[0][6] = 0
+  f19[0][7] = 0
+  f19[0][8] = 0
+  f19[0][9] = 0
+  f20[0][0] = 0.10000000000000001
+  f20[0][10] = 0
+  f20[0][11] = 0
+  f20[0][1] = 0
+  f20[0][2] = 0
+  f20[0][3] = 0
+  f20[0][4] = 0
+  f20[0][5] = 0
+  f20[0][6] = 0
+  f20[0][7] = 0
+  f20[0][8] = 0
+  f20[0][9] = 0

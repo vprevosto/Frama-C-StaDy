@@ -1,0 +1,1 @@
+FILTER:/bin/sed  -e "s|${FRAMAC_SHARE}|FRAMAC_SHARE|g"

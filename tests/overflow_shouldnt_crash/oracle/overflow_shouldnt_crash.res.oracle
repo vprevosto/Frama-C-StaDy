@@ -36,7 +36,7 @@ strategy('pathcrawler__f_precond',A) :-
   strategy('f',A).
 precondition_of('f','pathcrawler__f_precond').
 [stady:generated-c] generated C file:
-#include "/usr/local/share/frama-c/stady/externals.h"
+#include "FRAMAC_SHARE/stady/externals.h"
 
 int f_precond(int x) {
   return 1;

@@ -16,6 +16,5 @@ testcases___sd_instru*
 /Makefile
 /tests/*/result/
 /tests/ptests_config
-/tests/test_config
 /top
 /gui

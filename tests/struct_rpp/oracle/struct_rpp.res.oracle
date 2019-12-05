@@ -39,7 +39,7 @@ strategy('pathcrawler__relational_wrapper_1_precond',A) :-
   strategy('relational_wrapper_1',A).
 precondition_of('relational_wrapper_1','pathcrawler__relational_wrapper_1_precond').
 [stady:generated-c] generated C file:
-#include "/usr/local/share/frama-c/stady/externals.h"
+#include "FRAMAC_SHARE/stady/externals.h"
 
 struct MyClass {
    int Name ;
@@ -108,7 +108,7 @@ int IntCompare(int x, int y)
         __gmpz_clear(__sd_Z_to_Z_1);
         __gmpz_clear(__sd_Z_cst_2);
       }
-      if (! __sd_implies_1) pathcrawler_assert_exception("",14);
+      if (! __sd_implies_1) pathcrawler_assert_exception("",15);
       __sd_implies_2 = 1;
       if (old_x == old_y) {
         mpz_t __sd_Z_to_Z_2;
@@ -207,7 +207,7 @@ void relational_wrapper_1(struct MyClass x1, struct MyClass x2, int *t)
           __gmpz_clear(__sd_Z_to_Z_4);
           __gmpz_clear(__sd_Z_cst_9);
         }
-        if (! __sd_and_0) pathcrawler_assert_exception("not established",13);
+        if (! __sd_and_0) pathcrawler_assert_exception("not established",14);
         __sd_forall_0 = 1;
         {
           mpz_t __sd_Z_cst_12;
@@ -289,7 +289,7 @@ void relational_wrapper_1(struct MyClass x1, struct MyClass x2, int *t)
           __gmpz_clear(__sd_Z_to_Z_6);
           __gmpz_clear(__sd_Z_cst_11);
         }
-        if (! __sd_and_1) pathcrawler_assert_exception("not preserved",13);
+        if (! __sd_and_1) pathcrawler_assert_exception("not preserved",14);
         __sd_forall_1 = 1;
         {
           mpz_t __sd_Z_cst_13;
@@ -353,7 +353,7 @@ void relational_wrapper_1(struct MyClass x1, struct MyClass x2, int *t)
           __sd_valid_1 = __sd_to_ctype_8 >= 0 && __sd_valid_dim_1 > __sd_to_ctype_8;
         }
         else __sd_valid_1 = 1;
-        if (! __sd_valid_1) pathcrawler_assert_exception("",9);
+        if (! __sd_valid_1) pathcrawler_assert_exception("",11);
         __gmpz_clear(__sd_Z_cst_14);
         __gmpz_clear(__sd_Z_cst_15);
         
@@ -383,7 +383,7 @@ void relational_wrapper_1(struct MyClass x1, struct MyClass x2, int *t)
           __gmpz_clear(__sd_Z_to_Z_10);
           __gmpz_clear(__sd_Z_cst_17);
         }
-        if (! __sd_and_4) pathcrawler_assert_exception("not established",10);
+        if (! __sd_and_4) pathcrawler_assert_exception("not established",12);
         __sd_forall_2 = 1;
         {
           mpz_t __sd_Z_cst_20;
@@ -419,7 +419,7 @@ void relational_wrapper_1(struct MyClass x1, struct MyClass x2, int *t)
           __gmpz_clear(__q_k);
         }
         if (! __sd_forall_2) pathcrawler_assert_exception("not established",
-                                                          7);
+                                                          8);
         __gmpz_clear(__sd_Z_cst_16);
         __gmpz_clear(__sd_Z_to_Z_9);
         
@@ -465,7 +465,7 @@ void relational_wrapper_1(struct MyClass x1, struct MyClass x2, int *t)
           __gmpz_clear(__sd_Z_to_Z_12);
           __gmpz_clear(__sd_Z_cst_19);
         }
-        if (! __sd_and_5) pathcrawler_assert_exception("not preserved",10);
+        if (! __sd_and_5) pathcrawler_assert_exception("not preserved",12);
         __sd_forall_3 = 1;
         {
           mpz_t __sd_Z_cst_21;
@@ -500,7 +500,7 @@ void relational_wrapper_1(struct MyClass x1, struct MyClass x2, int *t)
           __gmpz_clear(__sd_Z_to_Z_14);
           __gmpz_clear(__q_k);
         }
-        if (! __sd_forall_3) pathcrawler_assert_exception("not preserved",7);
+        if (! __sd_forall_3) pathcrawler_assert_exception("not preserved",8);
         __gmpz_clear(__sd_Z_cst_18);
         __gmpz_clear(__sd_Z_to_Z_11);
         
@@ -522,7 +522,7 @@ void relational_wrapper_1(struct MyClass x1, struct MyClass x2, int *t)
       __gmpz_init(__sd_Z_neg_1);
       __gmpz_sub(__sd_Z_neg_1,__sd_Z_cst_22,__sd_Z_to_Z_16);
       __sd_eq_3 = __gmpz_cmp(__sd_Z_to_Z_15,__sd_Z_neg_1);
-      if (! (__sd_eq_3 == 0)) pathcrawler_assert_exception("",15);
+      if (! (__sd_eq_3 == 0)) pathcrawler_assert_exception("",16);
       __gmpz_clear(__sd_Z_to_Z_15);
       __gmpz_clear(__sd_Z_cst_22);
       __gmpz_clear(__sd_Z_to_Z_16);
@@ -542,16 +542,14 @@ void relational_wrapper_1(struct MyClass x1, struct MyClass x2, int *t)
 [stady] all-paths: true
 [stady] 1 test cases
 [stady] Non-Compliance
-    of       : assert
-               Rpp:
-                 return_variable_relational_1 ≡ -return_variable_relational_2; 
-    location : tests/struct_rpp/struct_rpp.c:90
-    TEST DRIVER: testcases___sd_instru_struct_rpp_relational_wrapper_1/relational_wrapper_1/testdrivers/TC_1.c
-    t[0] = 0
-    t[1] = 0
-    t[2] = 0
-    x1[0] = 0
-    x2[0] = 0
+  of       : assert
+             Rpp:
+               return_variable_relational_1 ≡ -return_variable_relational_2; 
+  location : tests/struct_rpp/struct_rpp.c:90
+  TEST DRIVER: testcases___sd_instru_struct_rpp_relational_wrapper_1/relational_wrapper_1/testdrivers/TC_1.c
+  t[0] = 0
+  t[1] = 0
+  t[2] = 0
 [report] Computing properties status...
 
 --------------------------------------------------------------------------------

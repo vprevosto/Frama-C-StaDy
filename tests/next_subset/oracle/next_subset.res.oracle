@@ -40,7 +40,7 @@ strategy('pathcrawler__nextSubset_precond',A) :-
   strategy('nextSubset',A).
 precondition_of('nextSubset','pathcrawler__nextSubset_precond').
 [stady:generated-c] generated C file:
-#include "/usr/local/share/frama-c/stady/externals.h"
+#include "FRAMAC_SHARE/stady/externals.h"
 
 /*@
 predicate is_dset{L}(int *a, integer n) =
@@ -167,7 +167,7 @@ int nextSubset(int *s, int n)
         __gmpz_clear(__sd_Z_cst_18);
         __gmpz_clear(__sd_Z_sub_0);
       }
-      if (! __sd_and_1) pathcrawler_assert_exception("not established",1);
+      if (! __sd_and_1) pathcrawler_assert_exception("not established",3);
       __gmpz_clear(__sd_Z_cst_16);
       __gmpz_clear(__sd_Z_cst_17);
       __gmpz_clear(__sd_Z_neg_4);
@@ -180,7 +180,7 @@ int nextSubset(int *s, int n)
           break;
         }
         int __sd_variant_save_0;
-      if (k < 0) pathcrawler_assert_exception("non positive",3);
+      if (k < 0) pathcrawler_assert_exception("non positive",13);
       __sd_variant_save_0 = k;
       {
         if (*(s + k) == 0) {
@@ -219,9 +219,9 @@ int nextSubset(int *s, int n)
         __gmpz_clear(__sd_Z_cst_21);
         __gmpz_clear(__sd_Z_sub_1);
       }
-      if (! __sd_and_2) pathcrawler_assert_exception("not preserved",1);
+      if (! __sd_and_2) pathcrawler_assert_exception("not preserved",3);
       if (k >= __sd_variant_save_0) pathcrawler_assert_exception("non decreasing",
-                                                                 3);
+                                                                 13);
       __gmpz_clear(__sd_Z_cst_19);
       __gmpz_clear(__sd_Z_cst_20);
       __gmpz_clear(__sd_Z_neg_5);
@@ -254,7 +254,7 @@ int nextSubset(int *s, int n)
       __sd_le_5 = __gmpz_cmp(__sd_Z_add_0,__sd_Z_to_Z_22);
       __sd_and_3 = __sd_le_5 <= 0;
       if (__sd_and_3) __sd_and_3 = i <= n;
-      if (! __sd_and_3) pathcrawler_assert_exception("not established",10);
+      if (! __sd_and_3) pathcrawler_assert_exception("not established",9);
       __sd_forall_4 = 1;
       {
         mpz_t __sd_Z_cst_24;
@@ -305,7 +305,7 @@ int nextSubset(int *s, int n)
         __gmpz_clear(__sd_Z_to_Z_25);
         __gmpz_clear(__q_i);
       }
-      if (! __sd_forall_4) pathcrawler_assert_exception("not established",12);
+      if (! __sd_forall_4) pathcrawler_assert_exception("not established",10);
       __gmpz_clear(__sd_Z_to_Z_21);
       __gmpz_clear(__sd_Z_cst_22);
       __gmpz_clear(__sd_Z_add_0);
@@ -327,7 +327,7 @@ int nextSubset(int *s, int n)
       __gmpz_sub(__sd_Z_sub_2,__sd_Z_to_Z_31,__sd_Z_to_Z_32);
       __sd_variant_pos_0 = __gmpz_cmp_ui(__sd_Z_sub_2,0);
       if (__sd_variant_pos_0 < 0) pathcrawler_assert_exception("non positive",
-                                                               9);
+                                                               1);
       {
         *(s + i) = 0;
         i ++;
@@ -350,7 +350,7 @@ int nextSubset(int *s, int n)
       __sd_le_6 = __gmpz_cmp(__sd_Z_add_1,__sd_Z_to_Z_24);
       __sd_and_4 = __sd_le_6 <= 0;
       if (__sd_and_4) __sd_and_4 = i <= n;
-      if (! __sd_and_4) pathcrawler_assert_exception("not preserved",10);
+      if (! __sd_and_4) pathcrawler_assert_exception("not preserved",9);
       __sd_forall_5 = 1;
       {
         mpz_t __sd_Z_cst_27;
@@ -401,14 +401,14 @@ int nextSubset(int *s, int n)
         __gmpz_clear(__sd_Z_to_Z_28);
         __gmpz_clear(__q_i);
       }
-      if (! __sd_forall_5) pathcrawler_assert_exception("not preserved",12);
+      if (! __sd_forall_5) pathcrawler_assert_exception("not preserved",10);
       __gmpz_init_set_si(__sd_Z_to_Z_33,n);
       __gmpz_init_set_si(__sd_Z_to_Z_34,i);
       __gmpz_init(__sd_Z_sub_3);
       __gmpz_sub(__sd_Z_sub_3,__sd_Z_to_Z_33,__sd_Z_to_Z_34);
       __sd_variant_decr_0 = __gmpz_cmp(__sd_Z_sub_3,__sd_Z_sub_2);
       if (__sd_variant_decr_0 >= 0) pathcrawler_assert_exception("non decreasing",
-                                                                 9);
+                                                                 1);
       __gmpz_clear(__sd_Z_to_Z_23);
       __gmpz_clear(__sd_Z_cst_23);
       __gmpz_clear(__sd_Z_add_1);
@@ -591,7 +591,7 @@ int nextSubset(int *s, int n)
           }
           __sd_implies_1 = __sd_forall_3;
         }
-        if (! __sd_implies_1) pathcrawler_assert_exception("",13);
+        if (! __sd_implies_1) pathcrawler_assert_exception("",11);
         __gmpz_init_set_si(__sd_Z_to_Z_11,__retres);
         __gmpz_init_set_str(__sd_Z_cst_14,"0",10);
         __gmpz_init_set_str(__sd_Z_cst_15,"1",10);
@@ -612,7 +612,7 @@ int nextSubset(int *s, int n)
           __gmpz_clear(__sd_Z_to_Z_12);
           __gmpz_clear(__sd_Z_to_Z_13);
         }
-        if (! __sd_implies_2) pathcrawler_assert_exception("",14);
+        if (! __sd_implies_2) pathcrawler_assert_exception("",12);
         __gmpz_clear(__sd_Z_cst_6);
         __gmpz_clear(__sd_Z_cst_7);
         __gmpz_clear(__sd_Z_neg_0);

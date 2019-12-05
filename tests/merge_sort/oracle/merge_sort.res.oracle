@@ -1,5 +1,6 @@
 [kernel] Parsing tests/merge_sort/merge_sort.c (with preprocessing)
-tests/merge_sort/merge_sort.c:96:[stady] warning: \separated(table, ret) unsupported
+[stady] tests/merge_sort/merge_sort.c:96: Warning: 
+  \separated(table, ret) unsupported
 [stady:generated-pl] generated Prolog precondition:
 :- module(test_parameters).
 :- import create_input_val/3 from substitution.
@@ -44,7 +45,7 @@ strategy('pathcrawler__merge_sort_precond',A) :-
   strategy('merge_sort',A).
 precondition_of('merge_sort','pathcrawler__merge_sort_precond').
 [stady:generated-c] generated C file:
-#include "/usr/local/share/frama-c/stady/externals.h"
+#include "FRAMAC_SHARE/stady/externals.h"
 
 int merge_sort_precond(int *table, int l, int *ret) {
   return 1;
@@ -212,8 +213,10 @@ void BottomUpMerge(int *A, int iLeft, int iRight, int iEnd, int *B)
               
                 if (*(A + i0) <= *(A + i1)) {
                   {
-                    _LOR: *(B + j) = *(A + i0);
-                          i0 ++;
+                    _LOR: {
+                            *(B + j) = *(A + i0);
+                            i0 ++;
+                          }
                   }
                 }
                 else {
@@ -225,8 +228,10 @@ void BottomUpMerge(int *A, int iLeft, int iRight, int iEnd, int *B)
         }
         else {
           {
-            _LAND: *(B + j) = *(A + i1);
-                   i1 ++;
+            _LAND: {
+                     *(B + j) = *(A + i1);
+                     i1 ++;
+                   }
           }
         }
         
@@ -347,7 +352,7 @@ void CopyArray(int *A, int *B, int n)
     __sd_valid_2 = __sd_to_ctype_5 >= 0 && __sd_valid_dim_2 > __sd_to_ctype_5;
   }
   else __sd_valid_2 = 1;
-  if (! __sd_valid_2) pathcrawler_assert_exception("",15);
+  if (! __sd_valid_2) pathcrawler_assert_exception("",14);
   __gmpz_init_set_str(__sd_Z_cst_4,"0",10);
   __sd_to_ctype_6 = (int)__gmpz_get_si(__sd_Z_cst_4);
   __gmpz_init_set_si(__sd_Z_to_Z_21,n);
@@ -361,7 +366,7 @@ void CopyArray(int *A, int *B, int n)
     __sd_valid_3 = __sd_to_ctype_7 >= 0 && __sd_valid_dim_3 > __sd_to_ctype_7;
   }
   else __sd_valid_3 = 1;
-  if (! __sd_valid_3) pathcrawler_assert_exception("",14);
+  if (! __sd_valid_3) pathcrawler_assert_exception("",13);
   old_A = A;
   __gmpz_init_set_si(__sd_Z_to_Z_22,n);
   __sd_to_ctype_8 = __gmpz_get_ui(__sd_Z_to_Z_22);
@@ -424,7 +429,7 @@ void CopyArray(int *A, int *B, int n)
       __gmpz_sub(__sd_Z_sub_12,__sd_Z_to_Z_26,__sd_Z_to_Z_27);
       __sd_variant_pos_1 = __gmpz_cmp_ui(__sd_Z_sub_12,0);
       if (__sd_variant_pos_1 < 0) pathcrawler_assert_exception("non positive",
-                                                               11);
+                                                               1);
       {
         *(A + i) = *(B + i);
         i ++;
@@ -448,7 +453,7 @@ void CopyArray(int *A, int *B, int n)
       __gmpz_sub(__sd_Z_sub_13,__sd_Z_to_Z_28,__sd_Z_to_Z_29);
       __sd_variant_decr_1 = __gmpz_cmp(__sd_Z_sub_13,__sd_Z_sub_12);
       if (__sd_variant_decr_1 >= 0) pathcrawler_assert_exception("non decreasing",
-                                                                 11);
+                                                                 1);
       __gmpz_clear(__sd_Z_cst_7);
       __gmpz_clear(__sd_Z_to_Z_25);
       __gmpz_clear(__sd_Z_to_Z_28);
@@ -539,7 +544,7 @@ void BottomUpSort(int n, int *A, int *B)
     __sd_valid_5 = __sd_to_ctype_13 >= 0 && __sd_valid_dim_5 > __sd_to_ctype_13;
   }
   else __sd_valid_5 = 1;
-  if (! __sd_valid_5) pathcrawler_assert_exception("",21);
+  if (! __sd_valid_5) pathcrawler_assert_exception("",22);
   old_n = n;
   old_A = A;
   __gmpz_init_set_si(__sd_Z_to_Z_32,n);
@@ -606,7 +611,7 @@ void BottomUpSort(int n, int *A, int *B)
         __gmpz_clear(__sd_Z_cst_20);
         __gmpz_clear(__sd_Z_sub_20);
       }
-      if (! __sd_and_10) pathcrawler_assert_exception("not established",1);
+      if (! __sd_and_10) pathcrawler_assert_exception("not established",0);
       __gmpz_clear(__sd_Z_cst_18);
       __gmpz_clear(__sd_Z_to_Z_46);
       
@@ -626,7 +631,7 @@ void BottomUpSort(int n, int *A, int *B)
       __gmpz_sub(__sd_Z_sub_22,__sd_Z_to_Z_52,__sd_Z_to_Z_53);
       __sd_variant_pos_3 = __gmpz_cmp_ui(__sd_Z_sub_22,0);
       if (__sd_variant_pos_3 < 0) pathcrawler_assert_exception("non positive",
-                                                               24);
+                                                               9);
       {
         {
           int i;
@@ -693,7 +698,7 @@ void BottomUpSort(int n, int *A, int *B)
             __gmpz_sub(__sd_Z_sub_18,__sd_Z_to_Z_42,__sd_Z_to_Z_43);
             __sd_variant_pos_2 = __gmpz_cmp_ui(__sd_Z_sub_18,0);
             if (__sd_variant_pos_2 < 0) pathcrawler_assert_exception("non positive",
-                                                                    10);
+                                                                    18);
             {
               {
                 int tmp;
@@ -758,7 +763,7 @@ void BottomUpSort(int n, int *A, int *B)
             __gmpz_sub(__sd_Z_sub_19,__sd_Z_to_Z_44,__sd_Z_to_Z_45);
             __sd_variant_decr_2 = __gmpz_cmp(__sd_Z_sub_19,__sd_Z_sub_18);
             if (__sd_variant_decr_2 >= 0) pathcrawler_assert_exception
-                                          ("non decreasing",10);
+                                          ("non decreasing",18);
             __gmpz_clear(__sd_Z_cst_15);
             __gmpz_clear(__sd_Z_to_Z_38);
             __gmpz_clear(__sd_Z_to_Z_44);
@@ -810,14 +815,14 @@ void BottomUpSort(int n, int *A, int *B)
         __gmpz_clear(__sd_Z_cst_23);
         __gmpz_clear(__sd_Z_sub_21);
       }
-      if (! __sd_and_11) pathcrawler_assert_exception("not preserved",1);
+      if (! __sd_and_11) pathcrawler_assert_exception("not preserved",0);
       __gmpz_init_set_si(__sd_Z_to_Z_54,n);
       __gmpz_init_set_si(__sd_Z_to_Z_55,width);
       __gmpz_init(__sd_Z_sub_23);
       __gmpz_sub(__sd_Z_sub_23,__sd_Z_to_Z_54,__sd_Z_to_Z_55);
       __sd_variant_decr_3 = __gmpz_cmp(__sd_Z_sub_23,__sd_Z_sub_22);
       if (__sd_variant_decr_3 >= 0) pathcrawler_assert_exception("non decreasing",
-                                                                 24);
+                                                                 9);
       __gmpz_clear(__sd_Z_cst_21);
       __gmpz_clear(__sd_Z_to_Z_49);
       __gmpz_clear(__sd_Z_to_Z_54);
