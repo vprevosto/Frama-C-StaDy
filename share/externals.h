@@ -33,6 +33,9 @@ extern void __gmpz_tdiv_r_ui(mpz_t, const mpz_t, unsigned long int);
 #define mp_bitcnt_t unsigned long long
 extern void __gmpz_mul_2exp(mpz_t rop, const mpz_t op1, mp_bitcnt_t op2);
 extern void __gmpz_fdiv_q_2exp(mpz_t q, const mpz_t n, mp_bitcnt_t b);
+extern void __gmpz_and(mpz_t x, const mpz_t y, const mpz_t z);
+extern void __gmpz_ior(mpz_t x, const mpz_t y, const mpz_t z);
+extern void __gmpz_xor(mpz_t x, const mpz_t y, const mpz_t z);
 extern int pathcrawler_assert_exception(char*,int);
 extern int pathcrawler_dimension(void*);
 extern void pathcrawler_to_framac(char*);
