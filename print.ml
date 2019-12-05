@@ -113,11 +113,13 @@ class print_insertions insertions functions swd =
       Format.pp_close_box fmt () ;
       Format.pp_close_box fmt ()
 
+    val mutable first_pass = true
+
     method! file fmt f =
       self#headers fmt ;
-      let is_gfun = function GFun _ -> true | _ -> false in
-      Cil.iterGlobals f (fun g -> if not (is_gfun g) then self#global fmt g) ;
-      Cil.iterGlobals f (fun g -> if is_gfun g then self#global fmt g)
+      super#file fmt f;
+      first_pass <- false;
+      Cil.iterGlobals f (fun g -> self#global fmt g)
 
     method private headers fmt =
       let is_nondet b i = b || Utils.is_stmt_nondet i in
@@ -135,7 +137,7 @@ class print_insertions insertions functions swd =
 
     method! global fmt g =
       match g with
-      | GFun (fundec, l) ->
+      | GFun (fundec, l) when not first_pass ->
           if first_global then (
             List.iter (fun x -> self#generated_fundecl fmt x) functions ;
             first_global <- false ) ;
@@ -145,10 +147,15 @@ class print_insertions insertions functions swd =
           self#fundecl fmt fundec ;
           (fundec.svar).vattr <- oldattr ;
           Format.fprintf fmt "@\n"
-      | GVar (vi, _, _) ->
+      | GFun (fundec,l) ->
+          (* Keep a prototype in case the address is used in one of the
+             globals we'll print first. *)
+          self#global fmt (GFunDecl(Cil.empty_funspec(),fundec.svar,l))
+      | GVar (vi, _, _) when first_pass ->
           let old_vghost = vi.vghost in
           vi.vghost <- false ;
           super#global fmt g ;
           vi.vghost <- old_vghost
-      | _ -> super#global fmt g
+      | _ when first_pass -> super#global fmt g
+      | _ -> ()
   end
