@@ -392,7 +392,14 @@ class gather_insertions props swd =
       | _ -> raise Unreachable
 
     method private as_logic_type ty t =
-      if ty = t.term_type then self#translate_term t
+      let is_size_of = function
+          | TSizeOf _ | TSizeOfE _ | TSizeOfStr _ -> true
+          | _ -> false
+      in
+      if Cil_datatype.Logic_type.equal ty  t.term_type
+           && not (is_size_of t.term_node)
+      then
+        self#translate_term t
       else
         let i, e = self#translate_logic_coerce ty t in
         (i, Cil.new_exp ~loc e)
