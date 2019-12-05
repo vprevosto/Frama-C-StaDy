@@ -62,19 +62,8 @@ and pred_node env = function
             p.pred_content
       | LBinductive _ -> pred'
       (* TODO *) )
-  | (Pforall (q, p) | Pexists (q, p)) as pred' -> (
-      let prefix v = {v with lv_name= "__q_" ^ v.lv_name} in
-      let rec aux ret1 ret2 = function
-        | [] -> (ret1, ret2)
-        | h :: t -> aux (prefix h :: ret1) ((h, prefix h) :: ret2) t
-      in
-      let new_q, new_quantifs = aux [] [] q in
-      let new_quantifs = List.rev_append new_quantifs env.var_assoc in
-      let env = {env with var_assoc= new_quantifs} in
-      let new_p = pred env p in
-      match pred' with
-      | Pforall _ -> Pforall (new_q, new_p)
-      | _ -> Pexists (new_q, new_p) )
+  | Pforall (q, p) -> Pforall (q, pred env p)
+  | Pexists (q, p) -> Pexists (q, pred env p)
   | Pat (p, l) -> Pat (pred env p, label env l)
   | Pvalid_read (l, t) -> Pvalid_read (label env l, term env t)
   | Pvalid (l, t) -> Pvalid (label env l, term env t)
