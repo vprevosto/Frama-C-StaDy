@@ -1082,6 +1082,24 @@ class gather_insertions props swd =
       let env_after = do_varinfo vi in
       (env_before, env_after)
 
+    method private get_vars_in_pre kf =
+      let res = ref Cil_datatype.Varinfo.Set.empty in
+      let vis = object
+          inherit Visitor.frama_c_inplace
+          val mutable in_at = false
+          method! vterm_node = function
+            | Tat(_,BuiltinLabel(Pre|Old)) ->
+                in_at <- true;
+                Cil.DoChildrenPost (fun t -> in_at <- false; t)
+            | TLval (TVar {lv_origin = Some vi }, _) when in_at ->
+                res := Cil_datatype.Varinfo.Set.add vi !res;
+                Cil.DoChildren
+            | _ -> Cil.DoChildren
+        end
+      in
+      ignore (Visitor.visitFramacFunspec vis kf.spec);
+      !res
+
     method! vfunc f =
       let entry_point =
         Kernel_function.get_name (fst (Globals.entry_point ()))
@@ -1123,8 +1141,8 @@ class gather_insertions props swd =
         self#insert beg_label env_before ;
         self#insert end_label env_after
       in
-      List.iter do_varinfo visited_globals ;
-      List.iter do_varinfo (Kernel_function.get_formals kf) ;
+      let used_vars = self#get_vars_in_pre kf in
+      Cil_datatype.Varinfo.Set.iter do_varinfo used_vars;
       Cil.DoChildren
 
     method private cond_of_assumes pred_list =
@@ -1492,6 +1510,9 @@ class gather_insertions props swd =
       | GVar (vi, _, _) ->
           visited_globals <- vi :: visited_globals ;
           Cil.DoChildren
+      | GFunDecl(_,vi,_) | GFun({ svar = vi },_) when
+            Cil.hasAttribute "fc_stdlib" vi.vattr ->
+          Cil.SkipChildren
       | _ -> Cil.DoChildren
   end
 
