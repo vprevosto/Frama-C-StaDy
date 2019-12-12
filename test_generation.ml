@@ -146,9 +146,13 @@ let run ~entry_point ~precondition_filename ~instrumented_filename =
               aux (cpt + 1) )
           in
           aux 0
-        with _ ->
+        with e ->
           Unix.close socket ;
-          Options.abort "internet socket now closed!" ) ;
+          Options.abort
+            "Error when binding socket for listening \
+             to test case generator:@\n%s"
+            (Printexc.to_string e)
+      );
       Unix.close socket
   | _ (* stdio *) ->
       let chan = Unix.open_process_in cmd in
