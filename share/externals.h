@@ -1,3 +1,8 @@
+#ifndef STADY_EXTERNAL_H
+#define STADY_EXTERNAL_H
+#include <stdlib.h>
+#include <stdio.h>
+
 struct __anonstruct___mpz_struct_1 {
   int _mp_alloc ;
   int _mp_size ;
@@ -40,6 +45,4 @@ extern int pathcrawler_assert_exception(char*,int);
 extern int pathcrawler_dimension(void*);
 extern void pathcrawler_to_framac(char*);
 extern int pathcrawler_assume_exception(char*,int);
-extern void* malloc(unsigned long);
-extern void free(void*);
-extern int sprintf(char *str, const char *format, ...);
+#endif
