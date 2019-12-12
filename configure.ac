@@ -23,7 +23,7 @@ AC_MSG_CHECKING(for Frama-C version)
 AC_MSG_RESULT($FRAMAC_VERSION)
 
 VERSION_NUMBER=`echo $FRAMAC_VERSION | sed -e 's/^\([[0-9]]*\).*$/\1/'`
-REQUIRED_NUMBER=19
+REQUIRED_NUMBER=20
 
 if test -z "$VERSION_NUMBER" -o "$VERSION_NUMBER" -lt "$REQUIRED_NUMBER"; then
   AC_MSG_ERROR(Frama-C version must be at least $REQUIRED_NUMBER.)

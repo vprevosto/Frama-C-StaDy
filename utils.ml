@@ -100,9 +100,9 @@ let typically_preds_computed = ref false
 let typically_preds bhv =
   if !typically_preds_computed then !typically_preds_memo
   else
-    let get_ext_preds acc (_, str,_, _, kind) =
-      match kind with
-      | Ext_preds p when str = "typically" -> List.rev_append p acc
+    let get_ext_preds acc { ext_name; ext_kind } =
+      match ext_kind with
+      | Ext_preds p when ext_name = "typically" -> List.rev_append p acc
       | _ -> acc
     in
     let typically =
