@@ -517,7 +517,13 @@ class gather_insertions props swd =
       | Ctype _ ->
           let env, e = self#translate_term t in
           (env, CastE (ty, e))
-      | _ -> raise Unreachable
+      | Ltype _ as lt when Logic_const.is_boolean_type lt ->
+          let env, e = self#translate_term t in
+          (env, CastE (ty, e)) (* Not sure the cast is very useful here. *)
+      | _ ->
+        Options.fatal "Trying to cast %a that has logic type %a"
+          Printer.pp_term t Printer.pp_logic_type t.term_type;
+        raise Unreachable
 
     method private translate_term_node t =
       match t.term_node with
