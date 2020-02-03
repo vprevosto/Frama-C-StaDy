@@ -228,6 +228,7 @@ class to_pl =
         | PLConst (PLInt i) -> PLConst (PLInt (Integer.neg i))
         | _ -> Utils.error_term t )
       | Tat (t', BuiltinLabel (Here | Old | Pre)) -> self#term t'
+      | TCastE (ty,t') -> self#term {t' with term_type = Ctype ty}
       | _ -> Utils.error_term t
   end
 
@@ -341,6 +342,7 @@ let rec valid_to_prolog term =
       let ty = type_of_pointed (Cil.typeOfTermLval x') in
       let x' = Logic_const.term (TLval x') ty in
       valid_to_prolog {term with term_node= TBinOp (PlusPI, x', y)}
+  | TCastE (TPtr _ as ty, t) -> valid_to_prolog ({ t with term_type = Ctype ty})
   | TBinOp
       ( ((PlusPI | IndexPI | MinusPI) as op)
       , {term_node= TCastE ((TPtr _ as ty), t)}

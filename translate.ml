@@ -729,6 +729,8 @@ class gather_insertions props swd =
           let x' = Logic_const.term (TLval (TVar x, TNoOffset)) ty in
           self#translate_valid {term with term_node= TBinOp (PlusPI, x', y)}
       | TStartOf _ -> self#translate_valid_ptr term
+      | TCastE(TPtr _ as ty, t) ->
+          self#translate_valid_ptr { t with term_type = Ctype ty }
       | _ -> Utils.error_term term
 
     method private translate_valid_ptr_range pointer min_off max_off =
